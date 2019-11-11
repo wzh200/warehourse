@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.warehouse.dao.WarehouseMapper">
+
+    <select id="getWarehouseList" resultType="Warehouse" parameterType="String">
+        <if test="wName!=null and wName!=''">
+            <bind name="likeWName" value="'%'+wName+'%'"/>
+        </if>
+        select * from warehouse
+        <where>
+            <if test="wName!=null and wName!=''">
+                wName like #{likeWName}
+            </if>
+        </where>
+    </select>
+    <insert id="addWarehouse" parameterType="Warehouse">
+        insert into warehouse (wid,wName,wLeader,wAddress,wLocationNum) values (null,#{wName},#{wLeader},#{wAddress},#{wLocationNum})
+    </insert>
+    <update id="updateWarehouse" parameterType="Warehouse">
+        update warehouse set wName=#{wName},wLeader=#{wLeader},wAddress=#{wAddress},wLocationNum=#{wLocationNum} where wid=#{wid}
+    </update>
+</mapper>

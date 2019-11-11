@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.warehouse.dao.GoodsMapper">
+
+    <select id="getGoodsList" parameterType="String" resultMap="good_warehouse_map">
+        <if test="gName!=null and gName!=''">
+            <bind name="likeGName" value="'%'+gName+'%'"/>
+        </if>
+        select * from goods g,warehouse w ,goods_warehouse gw
+        <where>
+             gw.wid=w.wid and gw.gid=g.gid
+            <if test="gName!=null and gName!=''">
+              and  g.gName like #{likeGName}
+            </if>
+        </where>
+    </select>
+   <resultMap autoMapping="true" id="good_warehouse_map" type="Goods">
+     <collection autoMapping="true" property="warehouse" ofType="Warehouse">
+     </collection>
+     </resultMap>
+
+    <insert id="addGoods" parameterType="Goods" keyProperty="gid" useGeneratedKeys="true">
+        insert into goods (gid,gLocation,gName,gPrice,gNumber,gUnit) values (null,#{gLocation},#{gName},#{gPrice},#{gNumber},#{gUnit})
+    </insert>
+    <update id="updateGoods" parameterType="Goods">
+        update goods set gLocation=#{gLocation}, gName=#{gName},gPrice=#{gPrice},gNumber=#{gNumber},gUnit=#{gUnit} where gid=#{gid}
+    </update>
+</mapper>

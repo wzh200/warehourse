@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.warehouse.dao.SupplierMapper">
+
+    <select id="getSupplierNum" parameterType="String" resultType="int" >
+        <if test="sName!=null and sName!=''">
+            <bind name="likeSName" value="'%'+sName+'%'"/>
+        </if>
+        select count(*) from supplier
+        <where>
+            <if test="sName!=null and sName!=''">
+                sName like #{likeSName}
+            </if>
+        </where>
+
+    </select>
+    <select id="getSupplierList" resultType="Supplier" parameterType="Map">
+        <if test="name!=null and name!=''">
+            <bind name="likeSName" value="'%'+name+'%'"/>
+        </if>
+        select * from supplier
+        <where>
+            <if test="name!=null and name!=''">
+                sName like #{likeSName}
+            </if>
+        </where>
+        limit #{start},#{size}
+    </select>
+    <insert id="addSupplier" parameterType="Supplier">
+        insert into supplier (sid,sName,sTel,sEin,sCard) values (null,#{sName},#{sTel},#{sEin},#{sCard})
+    </insert>
+    <update id="updateSupplier" parameterType="Supplier">
+        update supplier set sName=#{sName},sTel=#{sTel},sEin=#{sEin},sCard=#{sCard} where sid=#{sid}
+    </update>
+</mapper>

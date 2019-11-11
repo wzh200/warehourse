@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet" >
+    <link rel="stylesheet" type="text/css" href="../css/login.css"/>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/login.js"></script>
+</head>
+<body>
+
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#getWarehouse" class="btn-success" data-toggle="tab">仓库查询</a></li>
+    <li><a href="#addWarehouse" class=" btn-success"  data-toggle="tab">仓库添加</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active in fade row" id="getWarehouse">
+        <div class="col-sm-8"></div>
+        <div class="col-sm-3">
+            <div class="input-group ">
+                <input type="text" class="form-control" placeholder="仓库查询" id="wName-get"/>
+                <span class="input-group-btn"><button id="put-wName" type="button" class="btn btn-block">查询</button></span>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div id="tableShow">
+                <table>
+                    <tr id="tt">
+                        <td>序号</td>
+                        <td>仓库名称</td>
+                        <td>仓库负责人</td>
+                        <td>仓库地址</td>
+                        <td>仓库货位数</td>
+                        <td>操作</td>
+                    </tr>
+                    <tr th:each="warehouse,cStat : ${session.warehouseList}">
+                        <td th:text="${warehouse.wid}"></td>
+                        <td th:text="${warehouse.wName}"></td>
+                        <td th:text="${warehouse.wLeader}"></td>
+                        <td th:text="${warehouse.wAddress}"></td>
+                        <td th:text="${warehouse.wLocationNum}"></td>
+                        <td ><a th:href="@{../deleteWarehouse(wid=${warehouse.wid})}">删除</a>
+                            <a data-toggle="modal" th:data-target="'#'+${cStat.index}" th:data-index="${cStat.index}">更新</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="modal" th:id="${cStat.index}" th:each="warehouse,cStat : ${session.warehouseList}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">更新</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="../updateWarehouse" method="post" class="formModal">
+                            <input type="text" name="wid"  hidden="hidden" th:value="${warehouse.wid}"/>
+                            仓库名称：<input type="text" name="wName"  th:value="${warehouse.wName}"/><br>
+                            仓库负责人：<input type="text" name="wLeader"  th:value="${warehouse.wLeader}"/><br>
+                            仓库地址：<input type="text" name="wAddress"  th:value="${warehouse.wAddress}"/><br>
+                            仓库货位数：<input type="text" name="wLocationNum"  th:value="${warehouse.wLocationNum}"/><br>
+                            <input type="submit" value="更新" class="button" />
+                            <p th:text="${updateWarehouseMsg}"></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane  fade" id="addWarehouse">
+        <form action="../addWarehouse" method="post" class="formModal">
+            仓库名称：<input type="text" name="wName" required="required"/><br>
+            仓库负责人：<input type="text" name="wLeader" required="required" /><br>
+            仓库地址：<input type="text" name="wAddress" required="required"/><br>
+            仓库货位数：<input type="text" name="wLocationNum"  required="required"/><br>
+            <input type="submit" value="注册" class="button" />
+            <p th:text="${updateWarehouseMsg}"></p>
+        </form>
+        </form>
+    </div>
+</div>
+</body>
+</html>

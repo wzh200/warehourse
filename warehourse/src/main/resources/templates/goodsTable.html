@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../css/bootstrap.min.css" rel="stylesheet" >
+	<link rel="stylesheet" type="text/css" href="../css/login.css"/>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/login.js"></script>
+</head>
+<body>
+
+<ul class="nav nav-tabs">
+	<li class="active"><a href="#getGoods" class="btn-success" data-toggle="tab">货品查询</a></li>
+	<li><a href="#addGoods" class=" btn-success"  data-toggle="tab">货品添加</a></li>
+</ul>
+<div class="tab-content">
+	<div class="tab-pane active in fade row" id="getGoods">
+		<div class="col-sm-8"></div>
+		<div class="col-sm-3">
+			<div class="input-group ">
+				<input type="text" class="form-control" placeholder="货品名查询" id="gName-get"/>
+				<span class="input-group-btn"><button id="put-gName" type="button" class="btn btn-block">查询</button></span>
+			</div>
+		</div>
+		<div class="col-sm-12">
+			<div id="tableShow">
+				<table>
+					<tr id="tt">
+						<td>序号</td>
+						<td>货品名</td>
+						<td>货位</td>
+						<td>单价</td>
+						<td>数量</td>
+						<td>单位</td>
+						<td>仓库名</td>
+						<td>管理者</td>
+						<td>地址</td>
+						<td>操作</td>
+					</tr>
+					<tr th:each="goods,cStat : ${session.goodsList}">
+						<td th:text="${goods.gid}"></td>
+						<td th:text="${goods.gName}"></td>
+						<td th:text="${goods.gLocation}"></td>
+						<td th:text="${goods.gPrice}"></td>
+						<td th:text="${goods.gNumber}"></td>
+						<td th:text="${goods.gUnit}"></td>
+						<td th:text="${goods.warehouse.wName}"></td>
+						<td th:text="${goods.warehouse.wLeader}"></td>
+						<td th:text="${goods.warehouse.wAddress}"></td>
+						<td ><a th:href="@{../deleteGoods(gid=${goods.gid})}">删除</a>
+							<a data-toggle="modal" th:data-target="'#'+${cStat.index}" th:data-index="${cStat.index}">更新</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="modal" th:id="${cStat.index}" th:each="goods,cStat : ${session.goodsList}">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">更新</h4>
+					</div>
+					<div class="modal-body">
+						<form action="../updateGoods" method="post" class="formModal">
+							<input type="text" name="gid"  hidden="hidden" th:value="${goods.gid}"/>
+							货品名：<input type="text" name="gName"  th:value="${goods.gName}"/><br>
+							货位：<input type="text" name="gLocation"  th:value="${goods.gLocation}"/><br>
+							单价：<input type="text" name="gPrice"  th:value="${goods.gPrice}"/><br>
+							数量：<input type="text" name="gNumber"  th:value="${goods.gNumber}"/><br>
+							单位：<input type="text" name="gUnit"  th:value="${goods.gUnit}"/><br>
+							仓库：<select name="wid"  class="selectWarehouse">
+							         <option>————请选择————</option>
+							        <option  th:value="${goods.warehouse.wid}" hidden selected></option>
+								  <option th:each="warehouse : ${session.warehousesList}" th:value="${warehouse.wid }" th:text="${warehouse.wName}"  ></option>
+						            </select>
+							<input type="submit" value="更新" class="button" />
+							<p th:text="${updateGoodsMsg}"></p>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="tab-pane  fade" id="addGoods">
+		<form action="../addGoods" method="post" class="formModal">
+			货品名：<input type="text" name="gName" /><br>
+			货位：<input type="text" name="gLocation" /><br>
+			单价：<input type="text" name="gPrice"  /><br>
+			数量：<input type="text" name="gNumber" /><br>
+			单位：<input type="text" name="gUnit" /><br>
+			仓库：<select name="wid" class="selectWarehouse">
+			<option>————请选择————</option>
+			<option th:each="warehouse : ${session.warehousesList}" th:value="${warehouse.wid }" th:text="${warehouse.wName}"  ></option>
+		</select><br>
+			<input type="submit" value="添加" class="button" />
+			<p th:text="${updateGoodsMsg}"></p>
+		</form>
+		</form>
+	</div>
+</div>
+</body>
+</html>

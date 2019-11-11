@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/html">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="css/login.css"/>
+	<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/login.js" type="text/javascript"></script>
+	</head>
+	<body id="body1">
+	<div class="text" >
+		<form action="/login" method="post" hidden="hidden" >
+			<h2>登陆</h2>
+			<div id="div1" ><img id="img1" style="display: none"/></div>
+			姓名：<input type="text" name="username" id="username" required/><br>
+			密码：<input type="password" name="password" id="password" minlength="6" required/><br>
+			验证码:  <input type="text" name="code" maxlength="6" style="width: 80px"required/>
+			<button type="button" class="btn btn-info"  id="second" disabled="disabled">点击获取验证码</button><br>
+			<input type="submit" value="登录" id="button" /><br>
+			<span><small>还没注册?</small><em><a href="/register" >点击</a></em></span>
+			<p th:text="${session.msglogin}"></p>
+		</form>
+	</div>
+	</body>
+</html>

@@ -1,0 +1,129 @@
+
+body{
+	margin: 0;
+	padding: 0;
+	width: 98%;
+}
+#body1{
+	background-image: url("../img/1.jpg");
+	background-attachment: fixed;
+}
+.text form{
+	                
+					text-align: center;
+					width: 330px;
+					height: 450px;
+					margin-top:120px;
+                    margin-left: 70%;
+					padding: 30px 10px;
+					background-color:white;
+					border: 1px solid #F0F0F0;
+					border-radius: 10px;
+					position: relative;
+				}
+#img1{
+	height: 60px;width: 60px; margin: 0 auto;border-radius: 30px
+}
+#div1{height: 60px;width: 60px; margin: 0 auto;border-radius: 30px}
+input{
+					border: 1px solid rgba(0.2,0.3,0.5,0.5);
+					border-radius: 12px;
+					height: 25px;
+					width: 200px;
+					margin-top: 15px;
+				}
+
+#button{
+					background-color: lightblue;
+					margin:30px 85px 15px 85px;
+				}
+ .formModal{
+	 text-align: center;
+	 padding: 30px 10px;
+ }
+ .button{
+	 background-color: lightblue;
+	 margin:30px 190px ;
+ }
+ .btn{
+	 height: 25px;
+ }
+
+ .userImg{
+	 border:1px solid black;
+	 border-radius:50%;
+	 width: 60px;
+	 height: 60px;
+ }
+ #leftPanel{
+	 background-color: whitesmoke;
+	 position: relative;
+	 margin-top: -10px;
+	 margin-left: -15px;
+	 padding-top: 10px;
+
+	 width: 240px;
+	 height:610px;
+ }
+ a{
+	 text-decoration:none;
+	 color: #000000;
+ }
+ iframe{
+	 background-image: url("../img/1.jpg");
+	 position: relative;
+	 margin-top: -10px;
+	 margin-left: -40px;
+	 border: none;
+	 height:610px;
+	 width: 900px;
+ }
+ #tableShow table{
+	 margin:15px auto;
+ }
+ #tableShow td{
+	 padding: 10px 25px;
+ }
+ #tt{
+	 background-color: limegreen;
+ }
+.fileModal{
+	position: relative;
+	margin-left: 195px;
+	margin-bottom: 20px;
+}
+.pModal{
+	position: absolute;
+	margin-left: 153px;
+	margin-top: 20px;
+}
+ #addUser .fileModal{
+	 margin-left: 353px;
+ }
+ #addUser .pModal{
+	 margin-left: 310px;
+ }
+ #addUser .formModal{
+	 margin-top: 100px;
+ }
+ #userTable{
+	 position: fixed;
+	 left:250px;
+	 width: 600px;
+	 top:540px;
+ }
+ #put-username,#put-sName,#put-gName,#put-wName{
+	 height: 34px;
+	 margin-top:15px ;
+ }
+ #addSupplier{
+	 margin-top: 100px;
+ }
+ #getSupplier tr,td{
+	 margin-top: 20px;
+	 margin-left: 20px;
+ }
+ .selectWarehouse{
+	 margin-top: 15px;
+	 width: 200px;
+ }
